@@ -1,11 +1,2065 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>AI Security Shield</title>
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Security Shield - Financial Model Protection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0f172a 100%);
+            min-height: 100vh;
+            color: white;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Auth Pages */
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .auth-card {
+            background: white;
+            border-radius: 20px;
+            padding: 48px;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .auth-logo {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .auth-logo-icon {
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            padding: 16px;
+            border-radius: 16px;
+            display: inline-block;
+            margin-bottom: 16px;
+        }
+
+        .auth-title {
+            color: #111827;
+            font-size: 28px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .auth-subtitle {
+            color: #6b7280;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            color: #374151;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 15px;
+            background: white;
+            cursor: pointer;
+        }
+
+        .btn {
+            padding: 14px 24px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s;
+            font-size: 15px;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-export {
+            background: #10b981;
+            color: white;
+        }
+
+        .btn-export:hover {
+            background: #059669;
+        }
+
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .auth-link {
+            text-align: center;
+            margin-top: 24px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .auth-link a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .auth-link a:hover {
+            text-decoration: underline;
+        }
+
+        .alert {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .alert-error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+
+        .alert-success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #6ee7b7;
+        }
+
+        /* Header */
+        header {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .user-role {
+            font-size: 11px;
+            opacity: 0.8;
+        }
+
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radius: 20px;
+            background: rgba(16, 185, 129, 0.2);
+            color: #6ee7b7;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin: 24px 0;
+            overflow-x: auto;
+            padding-bottom: 8px;
+        }
+
+        .tab {
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .tab:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Cards */
+        .metric-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            border-left: 4px solid #10b981;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .metric-label {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .metric-value {
+            color: #111827;
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .metric-trend {
+            color: #10b981;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .grid {
+            display: grid;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .grid-4 {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        }
+
+        /* Panel */
+        .panel {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .panel-title {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Threat Item */
+        .threat-item {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s;
+        }
+
+        .threat-item:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .threat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 12px;
+        }
+
+        .threat-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .threat-title {
+            color: #111827;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .threat-target {
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        .severity-badge {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            border: 1px solid;
+        }
+
+        .severity-high {
+            background: #fee2e2;
+            color: #991b1b;
+            border-color: #fca5a5;
+        }
+
+        .severity-medium {
+            background: #fed7aa;
+            color: #9a3412;
+            border-color: #fdba74;
+        }
+
+        .severity-low {
+            background: #fef3c7;
+            color: #92400e;
+            border-color: #fde68a;
+        }
+
+        .threat-details {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .threat-status {
+            color: #059669;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Model Card */
+        .model-card {
+            background: linear-gradient(135deg, #ffffff, #f3f4f6);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s;
+        }
+
+        .model-card:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .model-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .model-name {
+            color: #111827;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 12px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981, #059669);
+            transition: width 0.5s ease;
+        }
+
+        .model-stats {
+            display: flex;
+            justify-content: space-between;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .model-requests {
+            color: #6b7280;
+            font-size: 12px;
+            margin-top: 8px;
+        }
+
+        /* User Management Table */
+        .user-table {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 24px;
+        }
+
+        .user-table-header {
+            display: grid;
+            grid-template-columns: 2fr 1.5fr 1.5fr 1fr 1.5fr;
+            padding: 16px 24px;
+            background: #f9fafb;
+            font-weight: 600;
+            color: #374151;
+            border-bottom: 2px solid #e5e7eb;
+            font-size: 14px;
+        }
+
+        .user-table-row {
+            display: grid;
+            grid-template-columns: 2fr 1.5fr 1.5fr 1fr 1.5fr;
+            padding: 16px 24px;
+            border-bottom: 1px solid #e5e7eb;
+            align-items: center;
+            transition: background 0.2s;
+        }
+
+        .user-table-row:hover {
+            background: #f9fafb;
+        }
+
+        .user-table-cell {
+            color: #111827;
+            font-size: 14px;
+        }
+
+        .user-email {
+            font-weight: 500;
+        }
+
+        .role-pill {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .role-admin { background: #dbeafe; color: #1e40af; }
+        .role-analyst { background: #fef3c7; color: #92400e; }
+        .role-engineer { background: #d1fae5; color: #065f46; }
+        .role-viewer { background: #e5e7eb; color: #374151; }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-edit {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background: #2563eb;
+        }
+
+        .btn-delete {
+            background: #ef4444;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background: #dc2626;
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 16px;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            padding: 24px;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            color: #111827;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #374151;
+        }
+
+        .checkbox-input {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 24px;
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            border-left: 4px solid #3b82f6;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            z-index: 1001;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .notification-content {
+            display: flex;
+            gap: 12px;
+        }
+
+        .notification-title {
+            color: #111827;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .notification-text {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #9ca3af;
+        }
+
+        .empty-icon {
+            margin: 0 auto 16px;
+            opacity: 0.5;
+        }
+
+        /* Hidden */
+        .hidden {
+            display: none !important;
+        }
+
+        /* White Card */
+        .white-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .white-card-title {
+            color: #111827;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        /* Severity Stats */
+        .severity-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .severity-stat {
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid;
+        }
+
+        .stat-high {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: rgba(239, 68, 68, 0.5);
+        }
+
+        .stat-medium {
+            background: rgba(249, 115, 22, 0.2);
+            border-color: rgba(249, 115, 22, 0.5);
+        }
+
+        .stat-low {
+            background: rgba(234, 179, 8, 0.2);
+            border-color: rgba(234, 179, 8, 0.5);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            margin-bottom: 8px;
+            opacity: 0.9;
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        /* Analytics */
+        .analytics-item {
+            margin-bottom: 20px;
+        }
+
+        .analytics-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            color: #374151;
+            font-size: 14px;
+        }
+
+        .analytics-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .analytics-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #06b6d4);
+            transition: width 0.5s ease;
+        }
+
+        /* Defense Items */
+        .defense-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .defense-item:last-child {
+            border-bottom: none;
+        }
+
+        .defense-name {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #374151;
+        }
+
+        .defense-status {
+            color: #059669;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* Health Metrics */
+        .health-metric {
+            margin-bottom: 20px;
+        }
+
+        .health-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .health-bar {
+            width: 100%;
+            height: 12px;
+            background: #374151;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .health-fill {
+            height: 100%;
+            transition: width 0.5s ease;
+            border-radius: 6px;
+        }
+
+        .health-cpu { background: #10b981; }
+        .health-memory { background: #3b82f6; }
+        .health-network { background: #06b6d4; }
+        .health-storage { background: #8b5cf6; }
+
+        /* Stats Card */
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-card-label {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-bottom: 8px;
+        }
+
+        .stat-card-value {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .stat-card-detail {
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        /* Role Card */
+        .role-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .role-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .role-name {
+            color: #111827;
+            font-weight: 600;
+        }
+
+        .role-badge {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .role-permissions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .permission-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        /* Access Log */
+        .access-log {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 24px;
+        }
+
+        .log-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .log-item:last-child {
+            border-bottom: none;
+        }
+
+        .log-info {
+            flex: 1;
+        }
+
+        .log-user {
+            color: #111827;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .log-action {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .log-meta {
+            text-align: right;
+        }
+
+        .log-role {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 2px 8px;
+            border-radius: 8px;
+            font-size: 11px;
+            margin-bottom: 4px;
+            display: inline-block;
+        }
+
+        .log-time {
+            color: #9ca3af;
+            font-size: 12px;
+        }
+
+d-4, .grid-3, .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .threat-header {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .user-table-header,
+            .user-table-row {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .user-table-header {
+                display: none;
+            }
+
+            .user-table-row {
+                padding: 16px;
+                border: 1px solid #e5e7eb;
+                border-radius: 8px;
+                margin-bottom: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script>
+        class AISecurityShield {
+            constructor() {
+                this.state = {
+                    currentView: 'login', // login, signup, dashboard
+                    currentUser: null,
+                    activeTab: 'overview',
+                    threats: [],
+                    apiCalls: 0,
+                    blockedAttacks: 0,
+                    showNotification: false,
+                    showSettings: false,
+                    showUserModal: false,
+                    editingUser: null,
+                    users: [
+                        {
+                            id: 1,
+                            email: 'admin@company.com',
+                            phone: '+1234567890',
+                            password: 'admin123',
+                            name: 'Admin User',
+                            role: 'Administrator',
+                            createdAt: '2024-01-15'
+                        },
+                        {
+                            id: 2,
+                            email: 'analyst@company.com',
+                            phone: '+1234567891',
+                            password: 'analyst123',
+                            name: 'Security Analyst',
+                            role: 'Security Analyst',
+                            createdAt: '2024-02-20'
+                        }
+                    ],
+                    alertSettings: {
+                        email: 'Smartxpress74@gmail.com',
+                        phone: '+2349020779297',
+                        emailEnabled: true,
+                        smsEnabled: true,
+                        highSeverityOnly: false
+                    }
+                };
+                
+                this.init();
+            }
+
+            init() {
+                this.render();
+                // Check if user is logged in
+                const savedUser = localStorage.getItem('currentUser');
+                if (savedUser) {
+                    this.state.currentUser = JSON.parse(savedUser);
+                    this.state.currentView = 'dashboard';
+                    this.startThreatSimulation();
+                }
+                this.render();
+            }
+
+            login(emailOrPhone, password) {
+                const user = this.state.users.find(u => 
+                    (u.email === emailOrPhone || u.phone === emailOrPhone) && u.password === password
+                );
+
+                if (user) {
+                    this.state.currentUser = user;
+                    this.state.currentView = 'dashboard';
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    this.startThreatSimulation();
+                    this.render();
+                    return { success: true };
+                } else {
+                    return { success: false, error: 'Invalid email/phone or password' };
+                }
+            }
+
+            signup(email, phone, password, name) {
+                // Check if user already exists
+                const exists = this.state.users.find(u => u.email === email || u.phone === phone);
+                if (exists) {
+                    return { success: false, error: 'User with this email or phone already exists' };
+                }
+
+                const newUser = {
+                    id: this.state.users.length + 1,
+                    email,
+                    phone,
+                    password,
+                    name,
+                    role: 'Read-Only Viewer', // Default role for new signups
+                    createdAt: new Date().toISOString().split('T')[0]
+                };
+
+                this.state.users.push(newUser);
+                return { success: true };
+            }
+
+            logout() {
+                this.state.currentUser = null;
+                this.state.currentView = 'login';
+                localStorage.removeItem('currentUser');
+                this.render();
+            }
+
+            startThreatSimulation() {
+                setInterval(() => {
+                    this.state.apiCalls += Math.floor(Math.random() * 5) + 1;
+                    
+                    if (Math.random() > 0.7) {
+                        const threat = {
+                            id: Date.now(),
+                            type: ['Adversarial Input', 'Model Extraction', 'Data Poisoning', 'API Abuse'][Math.floor(Math.random() * 4)],
+                            severity: ['low', 'medium', 'high'][Math.floor(Math.random() * 3)],
+                            timestamp: new Date().toLocaleTimeString(),
+                            date: new Date().toLocaleDateString(),
+                            status: 'blocked',
+                            source: `IP: ${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`,
+                            target: ['Fraud Model', 'Credit Engine', 'Transaction AI'][Math.floor(Math.random() * 3)]
+                        };
+                        
+                        this.state.threats.unshift(threat);
+                        this.state.threats = this.state.threats.slice(0, 50);
+                        this.state.blockedAttacks++;
+                        this.sendAlert(threat);
+                    }
+                    
+                    if (this.state.currentView === 'dashboard') {
+                        this.render();
+                    }
+                }, 3000);
+            }
+
+            sendAlert(threat) {
+                const { alertSettings } = this.state;
+                if (!alertSettings.highSeverityOnly || threat.severity === 'high') {
+                    if (alertSettings.emailEnabled) {
+                        console.log(`📧 Email sent to ${alertSettings.email}: ${threat.type} detected`);
+                    }
+                    if (alertSettings.smsEnabled) {
+                        console.log(`📱 SMS sent to ${alertSettings.phone}: ${threat.type} detected`);
+                    }
+                    this.showNotification();
+                }
+            }
+
+            showNotification() {
+                this.state.showNotification = true;
+                this.render();
+                setTimeout(() => {
+                    this.state.showNotification = false;
+                    this.render();
+                }, 5000);
+            }
+
+            setActiveTab(tab) {
+                this.state.activeTab = tab;
+                this.render();
+            }
+
+            toggleSettings() {
+                this.state.showSettings = !this.state.showSettings;
+                this.render();
+            }
+
+            saveSettings() {
+                const email = document.getElementById('alert-email').value;
+                const phone = document.getElementById('alert-phone').value;
+                const emailEnabled = document.getElementById('email-enabled').checked;
+                const smsEnabled = document.getElementById('sms-enabled').checked;
+                const highSeverityOnly = document.getElementById('high-severity').checked;
+                
+                this.state.alertSettings = { email, phone, emailEnabled, smsEnabled, highSeverityOnly };
+                this.state.showSettings = false;
+                this.render();
+            }
+
+            openUserModal(user = null) {
+                this.state.editingUser = user;
+                this.state.showUserModal = true;
+                this.render();
+            }
+
+            closeUserModal() {
+                this.state.editingUser = null;
+                this.state.showUserModal = false;
+                this.render();
+            }
+
+            saveUser() {
+                const email = document.getElementById('user-email').value;
+                const phone = document.getElementById('user-phone').value;
+                const name = document.getElementById('user-name').value;
+                const role = document.getElementById('user-role').value;
+
+                if (this.state.editingUser) {
+                    // Update existing user
+                    const index = this.state.users.findIndex(u => u.id === this.state.editingUser.id);
+                    this.state.users[index] = {
+                        ...this.state.users[index],
+                        email,
+                        phone,
+                        name,
+                        role
+                    };
+                } else {
+                    // Add new user
+                    const newUser = {
+                        id: this.state.users.length + 1,
+                        email,
+                        phone,
+                        password: 'password123', // Default password
+                        name,
+                        role,
+                        createdAt: new Date().toISOString().split('T')[0]
+                    };
+                    this.state.users.push(newUser);
+                }
+
+                this.closeUserModal();
+            }
+
+            deleteUser(userId) {
+                if (confirm('Are you sure you want to delete this user?')) {
+                    this.state.users = this.state.users.filter(u => u.id !== userId);
+                    this.render();
+                }
+            }
+
+            exportReport() {
+                const report = {
+                    generatedAt: new Date().toISOString(),
+                    summary: {
+                        totalThreats: this.state.threats.length,
+                        blockedAttacks: this.state.blockedAttacks,
+                        apiCalls: this.state.apiCalls
+                    },
+                    threats: this.state.threats
+                };
+                
+                const blob = new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `security-report-${Date.now()}.json`;
+                a.click();
+            }
+
+            render() {
+                const app = document.getElementById('app');
+                
+                if (this.state.currentView === 'login') {
+                    app.innerHTML = this.renderLogin();
+                } else if (this.state.currentView === 'signup') {
+                    app.innerHTML = this.renderSignup();
+                } else {
+                    app.innerHTML = this.renderDashboard();
+                }
+            }
+
+            renderLogin() {
+                return `
+                    <div class="auth-container">
+                        <div class="auth-card">
+                            <div class="auth-logo">
+                                <div class="auth-logo-icon">
+                                    <svg width="48" height="48" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                    </svg>
+                                </div>
+                                <h1 class="auth-title">AI Security Shield</h1>
+                                <p class="auth-subtitle">Sign in to your account</p>
+                            </div>
+
+                            <div id="login-error"></div>
+
+                            <form onsubmit="return app.handleLogin(event)">
+                                <div class="form-group">
+                                    <label class="form-label">Email or Phone Number</label>
+                                    <input type="text" class="form-input" id="login-identifier" placeholder="admin@company.com or +1234567890" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Password</label>
+                                    <input type="password" class="form-input" id="login-password" placeholder="Enter your password" required>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">
+                                    Sign In
+                                </button>
+                            </form>
+
+                            <div class="auth-link">
+                                Don't have an account? <a href="#" onclick="app.state.currentView='signup'; app.render(); return false;">Sign Up</a>
+                            </div>
+
+                            <div class="auth-link" style="margin-top: 16px; font-size: 12px; color: #9ca3af;">
+                                <strong>Demo Credentials:</strong><br>
+                                admin@company.com / admin123<br>
+                                analyst@company.com / analyst123
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            handleLogin(event) {
+                event.preventDefault();
+                const identifier = document.getElementById('login-identifier').value;
+                const password = document.getElementById('login-password').value;
+                
+                const result = this.login(identifier, password);
+                
+                if (!result.success) {
+                    document.getElementById('login-error').innerHTML = `
+                        <div class="alert alert-error">${result.error}</div>
+                    `;
+                }
+                
+                return false;
+            }
+
+            renderSignup() {
+                return `
+                    <div class="auth-container">
+                        <div class="auth-card">
+                            <div class="auth-logo">
+                                <div class="auth-logo-icon">
+                                    <svg width="48" height="48" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                    </svg>
+                                </div>
+                                <h1 class="auth-title">Create Account</h1>
+                                <p class="auth-subtitle">Join AI Security Shield</p>
+                            </div>
+
+                            <div id="signup-message"></div>
+
+                            <form onsubmit="return app.handleSignup(event)">
+                                <div class="form-group">
+                                    <label class="form-label">Full Name</label>
+                                    <input type="text" class="form-input" id="signup-name" placeholder="John Doe" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Email Address</label>
+                                    <input type="email" class="form-input" id="signup-email" placeholder="john@company.com" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-input" id="signup-phone" placeholder="+1234567890" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Password</label>
+                                    <input type="password" class="form-input" id="signup-password" placeholder="Create a strong password" required minlength="6">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Confirm Password</label>
+                                    <input type="password" class="form-input" id="signup-confirm" placeholder="Confirm your password" required minlength="6">
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">
+                                    Create Account
+                                </button>
+                            </form>
+
+                            <div class="auth-link">
+                                Already have an account? <a href="#" onclick="app.state.currentView='login'; app.render(); return false;">Sign In</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            handleSignup(event) {
+                event.preventDefault();
+                const name = document.getElementById('signup-name').value;
+                const email = document.getElementById('signup-email').value;
+                const phone = document.getElementById('signup-phone').value;
+                const password = document.getElementById('signup-password').value;
+                const confirm = document.getElementById('signup-confirm').value;
+                
+                if (password !== confirm) {
+                    document.getElementById('signup-message').innerHTML = `
+                        <div class="alert alert-error">Passwords do not match</div>
+                    `;
+                    return false;
+                }
+                
+                const result = this.signup(email, phone, password, name);
+                
+                if (result.success) {
+                    document.getElementById('signup-message').innerHTML = `
+                        <div class="alert alert-success">Account created successfully! Redirecting to login...</div>
+                    `;
+                    setTimeout(() => {
+                        this.state.currentView = 'login';
+                        this.render();
+                    }, 2000);
+                } else {
+                    document.getElementById('signup-message').innerHTML = `
+                        <div class="alert alert-error">${result.error}</div>
+                    `;
+                }
+                
+                return false;
+            }
+
+            renderDashboard() {
+                return `
+                    ${this.state.showNotification ? this.renderNotification() : ''}
+                    ${this.state.showSettings ? this.renderSettingsModal() : ''}
+                    ${this.state.showUserModal ? this.renderUserModal() : ''}
+                    
+                    <header>
+                        <div class="container">
+                            <div class="header-content">
+                                <div class="logo-section">
+                                    <div class="logo-icon">
+                                        <svg width="28" height="28" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+                                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h1 style="font-size: 24px; font-weight: bold;">AI Security Shield</h1>
+                                        <p style="font-size: 14px; color: #93c5fd;">Financial Model Protection Platform</p>
+                                    </div>
+                                </div>
+                                <div class="header-actions">
+                                    <button class="btn btn-export" onclick="app.exportReport()">
+                                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                                        </svg>
+                                        Export
+                                    </button>
+                                    <button class="btn btn-secondary" onclick="app.toggleSettings()">
+                                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <circle cx="12" cy="12" r="3"/>
+                                            <path d="M12 1v6m0 6v6"/>
+                                        </svg>
+                                    </button>
+                                    <div class="user-menu">
+                                        <div class="user-avatar">${this.state.currentUser.name.charAt(0)}</div>
+                                        <div class="user-info">
+                                            <div class="user-name">${this.state.currentUser.name}</div>
+                                            <div class="user-role">${this.state.currentUser.role}</div>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-secondary" onclick="app.logout()">
+                                        Logout
+                                    </button>
+                                    <div class="status-badge">
+                                        <div class="status-dot"></div>
+                                        System Secure
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+
+                    <div class="container" style="padding-top: 24px; padding-bottom: 60px;">
+                        <div class="tabs">
+                            ${['overview', 'threats', 'models', 'analytics', 'performance', 'users', 'admin'].map(tab => {
+                                // Only show admin tab if user is administrator
+                                if (tab === 'admin' && this.state.currentUser.role !== 'Administrator') {
+                                    return '';
+                                }
+                                return `
+                                    <button class="tab ${this.state.activeTab === tab ? 'active' : ''}" onclick="app.setActiveTab('${tab}')">
+                                        ${tab.charAt(0).toUpperCase() + tab.slice(1)}
+                                    </button>
+                                `;
+                            }).join('')}
+                        </div>
+
+                        ${this.renderActiveTab()}
+                    </div>
+                `;
+            }
+
+            renderNotification() {
+                return `
+                    <div class="notification">
+                        <div class="notification-content">
+                            <svg width="20" height="20" fill="none" stroke="#3b82f6" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/>
+                            </svg>
+                            <div>
+                                <div class="notification-title">Security Alert Sent</div>
+                                <div class="notification-text">
+                                    Notifications sent to ${this.state.alertSettings.email} and ${this.state.alertSettings.phone}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderSettingsModal() {
+                const { alertSettings } = this.state;
+                return `
+                    <div class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2 class="modal-title">Alert Settings</h2>
+                                <button class="btn btn-secondary" onclick="app.toggleSettings()" style="padding: 8px; width: auto;">
+                                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <line x1="18" y1="6" x2="6" y2="18"/>
+                                        <line x1="6" y1="6" x2="18" y2="18"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label class="form-label">Email Address</label>
+                                    <input type="email" class="form-input" id="alert-email" value="${alertSettings.email}">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-input" id="alert-phone" value="${alertSettings.phone}">
+                                </div>
+                                <div class="form-group">
+                                    <div class="checkbox-group">
+                                        <label class="checkbox-label">
+                                            <input type="checkbox" class="checkbox-input" id="email-enabled" ${alertSettings.emailEnabled ? 'checked' : ''}>
+                                            <span>Enable Email Notifications</span>
+                                        </label>
+                                        <label class="checkbox-label">
+                                            <input type="checkbox" class="checkbox-input" id="sms-enabled" ${alertSettings.smsEnabled ? 'checked' : ''}>
+                                            <span>Enable SMS Notifications</span>
+                                        </label>
+                                        <label class="checkbox-label">
+                                            <input type="checkbox" class="checkbox-input" id="high-severity" ${alertSettings.highSeverityOnly ? 'checked' : ''}>
+                                            <span>Alert only for High Severity threats</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary" onclick="app.saveSettings()">
+                                    Save Settings
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderUserModal() {
+                const user = this.state.editingUser;
+                return `
+                    <div class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2 class="modal-title">${user ? 'Edit User' : 'Add New User'}</h2>
+                                <button class="btn btn-secondary" onclick="app.closeUserModal()" style="padding: 8px; width: auto;">
+                                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <line x1="18" y1="6" x2="6" y2="18"/>
+                                        <line x1="6" y1="6" x2="18" y2="18"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label class="form-label">Full Name</label>
+                                    <input type="text" class="form-input" id="user-name" value="${user ? user.name : ''}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Email Address</label>
+                                    <input type="email" class="form-input" id="user-email" value="${user ? user.email : ''}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-input" id="user-phone" value="${user ? user.phone : ''}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Role</label>
+                                    <select class="form-select" id="user-role">
+                                        <option value="Administrator" ${user && user.role === 'Administrator' ? 'selected' : ''}>Administrator</option>
+                                        <option value="Security Analyst" ${user && user.role === 'Security Analyst' ? 'selected' : ''}>Security Analyst</option>
+                                        <option value="Model Engineer" ${user && user.role === 'Model Engineer' ? 'selected' : ''}>Model Engineer</option>
+                                        <option value="Compliance Officer" ${user && user.role === 'Compliance Officer' ? 'selected' : ''}>Compliance Officer</option>
+                                        <option value="Operations Manager" ${user && user.role === 'Operations Manager' ? 'selected' : ''}>Operations Manager</option>
+                                        <option value="Read-Only Viewer" ${user && user.role === 'Read-Only Viewer' ? 'selected' : ''}>Read-Only Viewer</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-primary" onclick="app.saveUser()">
+                                    ${user ? 'Update User' : 'Add User'}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderActiveTab() {
+                switch(this.state.activeTab) {
+                    case 'overview': return this.renderOverview();
+                    case 'threats': return this.renderThreats();
+                    case 'models': return this.renderModels();
+                    case 'analytics': return this.renderAnalytics();
+                    case 'performance': return this.renderPerformance();
+                    case 'users': return this.renderUsers();
+                    case 'admin': return this.renderAdmin();
+                    default: return '';
+                }
+            }
+
+            renderOverview() {
+                return `
+                    <div class="grid grid-4">
+                        <div class="metric-card">
+                            <div class="metric-label">API Requests</div>
+                            <div class="metric-value">${this.state.apiCalls.toLocaleString()}</div>
+                            <div class="metric-trend">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+                                    <polyline points="17 6 23 6 23 12"/>
+                                </svg>
+                                +12% from yesterday
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Threats Blocked</div>
+                            <div class="metric-value">${this.state.blockedAttacks}</div>
+                            <div class="metric-trend">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+                                    <polyline points="17 6 23 6 23 12"/>
+                                </svg>
+                                99.8% success rate
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Models Protected</div>
+                            <div class="metric-value">8</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Active Monitoring</div>
+                            <div class="metric-value">24/7</div>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <div class="panel-header">
+                            <div class="panel-title">
+                                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                                    <line x1="12" y1="9" x2="12" y2="13"/>
+                                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                                </svg>
+                                Recent Security Events
+                            </div>
+                        </div>
+                        ${this.state.threats.length > 0 ? 
+                            this.state.threats.slice(0, 5).map(t => this.renderThreatItem(t)).join('') :
+                            `<div class="empty-state">
+                                <svg class="empty-icon" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                </svg>
+                                <p>No threats detected. System is secure.</p>
+                            </div>`
+                        }
+                    </div>
+                `;
+            }
+
+            renderThreats() {
+                const highCount = this.state.threats.filter(t => t.severity === 'high').length;
+                const mediumCount = this.state.threats.filter(t => t.severity === 'medium').length;
+                const lowCount = this.state.threats.filter(t => t.severity === 'low').length;
+
+                return `
+                    <div class="panel">
+                        <div class="panel-header">
+                            <div class="panel-title">Threat Intelligence</div>
+                            <div style="color: white; font-size: 14px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+                                <span>📧 ${this.state.alertSettings.email}</span>
+                                <span>📱 ${this.state.alertSettings.phone}</span>
+                            </div>
+                        </div>
+
+                        <div class="severity-stats">
+                            <div class="severity-stat stat-high">
+                                <div class="stat-label">High Severity</div>
+                                <div class="stat-value">${highCount}</div>
+                            </div>
+                            <div class="severity-stat stat-medium">
+                                <div class="stat-label">Medium Severity</div>
+                                <div class="stat-value">${mediumCount}</div>
+                            </div>
+                            <div class="severity-stat stat-low">
+                                <div class="stat-label">Low Severity</div>
+                                <div class="stat-value">${lowCount}</div>
+                            </div>
+                        </div>
+
+                        <div style="max-height: 600px; overflow-y: auto;">
+                            ${this.state.threats.map(t => this.renderThreatItem(t)).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderThreatItem(threat) {
+                return `
+                    <div class="threat-item">
+                        <div class="threat-header">
+                            <div class="threat-info">
+                                <svg width="20" height="20" fill="none" stroke="#ef4444" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                                    <line x1="12" y1="9" x2="12" y2="13"/>
+                                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                                </svg>
+                                <div>
+                                    <div class="threat-title">${threat.type}</div>
+                                    <div class="threat-target">Target: ${threat.target}</div>
+                                </div>
+                            </div>
+                            <span class="severity-badge severity-${threat.severity}">${threat.severity.toUpperCase()}</span>
+                        </div>
+                        <div class="threat-details" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                            <span>Source: ${threat.source}</span>
+                            <span class="threat-status">
+                                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                ${threat.status}
+                            </span>
+                        </div>
+                        <div style="margin-top: 8px; display: flex; justify-content: space-between; font-size: 12px; color: #9ca3af;">
+                            <span>${threat.date}</span>
+                            <span>${threat.timestamp}</span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderModels() {
+                const models = [
+                    { name: 'Fraud Detection Model', confidence: 98, requests: 45000 },
+                    { name: 'Credit Scoring Engine', confidence: 96, requests: 32000 },
+                    { name: 'Transaction Classifier', confidence: 99, requests: 78000 },
+                    { name: 'Risk Assessment AI', confidence: 97, requests: 21000 },
+                    { name: 'AML Detection System', confidence: 95, requests: 56000 },
+                    { name: 'Anomaly Detection', confidence: 98, requests: 67000 },
+                    { name: 'Customer Behavior AI', confidence: 94, requests: 41000 },
+                    { name: 'Market Prediction Model', confidence: 96, requests: 29000 }
+                ];
+
+                return `
+                    <div class="panel">
+                        <div class="panel-title">Protected AI Models</div>
+                        <div class="grid grid-3" style="margin-top: 24px;">
+                            ${models.map(model => `
+                                <div class="model-card">
+                                    <div class="model-header">
+                                        <div class="model-name">${model.name}</div>
+                                        <svg width="20" height="20" fill="none" stroke="#10b981" stroke-width="2" viewBox="0 0 24 24">
+                                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                            <polyline points="22 4 12 14.01 9 11.01"/>
+                                        </svg>
+                                    </div>
+                                    <div class="model-stats">
+                                        <span style="color: #6b7280;">Protection Level</span>
+                                        <span style="color: #059669; font-weight: 600;">${model.confidence}%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: ${model.confidence}%"></div>
+                                    </div>
+                                    <div class="model-requests">${model.requests.toLocaleString()} requests/day</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderAnalytics() {
+                return `
+                    <div class="panel">
+                        <div class="panel-title">Security Analytics</div>
+                        <div class="grid grid-2" style="margin-top: 24px;">
+                            <div class="white-card">
+                                <div class="white-card-title">Attack Types Distribution</div>
+                                ${[
+                                    { name: 'Adversarial Input', value: 35 },
+                                    { name: 'Model Extraction', value: 28 },
+                                    { name: 'Data Poisoning', value: 22 },
+                                    { name: 'API Abuse', value: 15 }
+                                ].map(item => `
+                                    <div class="analytics-item">
+                                        <div class="analytics-header">
+                                            <span>${item.name}</span>
+                                            <span style="font-weight: 600;">${item.value}%</span>
+                                        </div>
+                                        <div class="analytics-bar">
+                                            <div class="analytics-fill" style="width: ${item.value}%"></div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+
+                            <div class="white-card">
+                                <div class="white-card-title">Defense Mechanisms</div>
+                                ${[
+                                    'Input Validation',
+                                    'Anomaly Detection',
+                                    'Rate Limiting',
+                                    'Encryption',
+                                    'Access Control',
+                                    'Model Monitoring'
+                                ].map(mechanism => `
+                                    <div class="defense-item">
+                                        <div class="defense-name">
+                                            <svg width="20" height="20" fill="none" stroke="#10b981" stroke-width="2" viewBox="0 0 24 24">
+                                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                                <polyline points="22 4 12 14.01 9 11.01"/>
+                                            </svg>
+                                            ${mechanism}
+                                        </div>
+                                        <span class="defense-status">Active</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderPerformance() {
+                return `
+                    <div class="grid grid-2">
+                        <div class="panel">
+                            <div class="panel-title">System Health</div>
+                            <div style="margin-top: 24px;">
+                                ${[
+                                    { name: 'CPU Usage', value: 45, class: 'health-cpu' },
+                                    { name: 'Memory Usage', value: 62, class: 'health-memory' },
+                                    { name: 'Network Load', value: 38, class: 'health-network' },
+                                    { name: 'Storage Usage', value: 71, class: 'health-storage' }
+                                ].map(metric => `
+                                    <div class="health-metric">
+                                        <div class="health-header">
+                                            <span>${metric.name}</span>
+                                            <span style="font-weight: 600;">${metric.value}%</span>
+                                        </div>
+                                        <div class="health-bar">
+                                            <div class="health-fill ${metric.class}" style="width: ${metric.value}%"></div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+
+                        <div class="panel">
+                            <div class="panel-title">Uptime & Reliability</div>
+                            <div style="margin-top: 24px; display: flex; flex-direction: column; gap: 16px;">
+                                <div class="stat-card">
+                                    <div class="stat-card-label">System Uptime</div>
+                                    <div class="stat-card-value">99.97%</div>
+                                    <div class="stat-card-detail">Last 30 days</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-card-label">Mean Time to Detect</div>
+                                    <div class="stat-card-value">2.3s</div>
+                                    <div class="stat-card-detail">Average response time</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-card-label">False Positive Rate</div>
+                                    <div class="stat-card-value">0.2%</div>
+                                    <div class="stat-card-detail">Industry leading accuracy</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderUsers() {
+                const roles = [
+                    { role: 'Administrator', users: 3, permissions: ['Full system access', 'Configure security policies', 'Manage user roles', 'Export reports', 'System configuration'] },
+                    { role: 'Security Analyst', users: 8, permissions: ['View all threats', 'Investigate incidents', 'Create reports', 'Monitor dashboards', 'Configure alerts'] },
+                    { role: 'Model Engineer', users: 12, permissions: ['Deploy AI models', 'View model metrics', 'Update configurations', 'Access performance data'] },
+                    { role: 'Compliance Officer', users: 5, permissions: ['View audit logs', 'Generate compliance reports', 'Review security policies', 'Access historical data'] },
+                    { role: 'Operations Manager', users: 6, permissions: ['View system status', 'Monitor uptime', 'Receive critical alerts', 'Basic reporting'] },
+                    { role: 'Read-Only Viewer', users: 15, permissions: ['View dashboards', 'Access basic metrics', 'View public reports'] }
+                ];
+
+                return `
+                    <div class="panel">
+                        <div class="panel-title">User Role Management</div>
+                        <div class="grid grid-3" style="margin-top: 24px;">
+                            ${roles.map(role => `
+                                <div class="role-card">
+                                    <div class="role-header">
+                                        <div class="role-name">${role.role}</div>
+                                        <span class="role-badge">${role.users} users</span>
+                                    </div>
+                                    <div class="role-permissions">
+                                        ${role.permissions.map(perm => `
+                                            <div class="permission-item">
+                                                <svg width="14" height="14" fill="none" stroke="#10b981" stroke-width="2" viewBox="0 0 24 24">
+                                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                                </svg>
+                                                ${perm}
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+
+                        <div class="access-log">
+                            <h3 style="color: #111827; font-weight: bold; margin-bottom: 16px;">Recent Access Log</h3>
+                            ${[
+                                { user: 'admin@company.com', action: 'Updated security policy', time: '2 minutes ago', role: 'Administrator' },
+                                { user: 'analyst1@company.com', action: 'Investigated threat #1247', time: '15 minutes ago', role: 'Security Analyst' },
+                                { user: 'engineer@company.com', action: 'Deployed model update', time: '1 hour ago', role: 'Model Engineer' },
+                                { user: 'compliance@company.com', action: 'Generated audit report', time: '2 hours ago', role: 'Compliance Officer' }
+                            ].map(log => `
+                                <div class="log-item">
+                                    <div class="log-info">
+                                        <div class="log-user">${log.user}</div>
+                                        <div class="log-action">${log.action}</div>
+                                    </div>
+                                    <div class="log-meta">
+                                        <div class="log-role">${log.role}</div>
+                                        <div class="log-time">${log.time}</div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderAdmin() {
+                return `
+                    <div class="panel">
+                        <div class="panel-header">
+                            <div class="panel-title">
+                                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="9" cy="7" r="4"/>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                                </svg>
+                                User Management
+                            </div>
+                            <button class="btn btn-primary" onclick="app.openUserModal()" style="width: auto;">
+                                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <line x1="12" y1="5" x2="12" y2="19"/>
+                                    <line x1="5" y1="12" x2="19" y2="12"/>
+                                </svg>
+                                Add New User
+                            </button>
+                        </div>
+
+                        <div class="user-table">
+                            <div class="user-table-header">
+                                <div>User</div>
+                                <div>Email</div>
+                                <div>Phone</div>
+                                <div>Role</div>
+                                <div>Actions</div>
+                            </div>
+                            ${this.state.users.map(user => `
+                                <div class="user-table-row">
+                                    <div class="user-table-cell">
+                                        <div style="display: flex; align-items: center; gap: 12px;">
+                                            <div class="user-avatar" style="width: 40px; height: 40px; font-size: 16px;">
+                                                ${user.name.charAt(0)}
+                                            </div>
+                                            <div>
+                                                <div style="font-weight: 600;">${user.name}</div>
+                                                <div style="font-size: 12px; color: #6b7280;">Joined ${user.createdAt}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="user-table-cell user-email">${user.email}</div>
+                                    <div class="user-table-cell">${user.phone}</div>
+                                    <div class="user-table-cell">
+                                        <span class="role-pill role-${user.role.toLowerCase().replace(/\s+/g, '-')}">${user.role}</span>
+                                    </div>
+                                    <div class="user-table-cell">
+                                        <div class="action-buttons">
+                                            <button class="btn-sm btn-edit" onclick="app.openUserModal(${JSON.stringify(user).replace(/"/g, '&quot;')})">
+                                                Edit
+                                            </button>
+                                            ${user.id !== this.state.currentUser.id ? `
+                                                <button class="btn-sm btn-delete" onclick="app.deleteUser(${user.id})">
+                                                    Delete
+                                                </button>
+                                            ` : ''}
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+
+                        <div style="margin-top: 24px; padding: 16px; background: #dbeafe; border-radius: 8px; border: 1px solid #93c5fd;">
+                            <div style="display: flex; gap: 12px;">
+                                <svg width="20" height="20" fill="none" stroke="#1e40af" stroke-width="2" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="12" y1="16" x2="12" y2="12"/>
+                                    <line x1="12" y1="8" x2="12.01" y2="8"/>
+                                </svg>
+                                <div style="flex: 1;">
+                                    <div style="font-weight: 600; color: #1e40af; margin-bottom: 4px;">Administrator Privileges</div>
+                                    <div style="font-size: 14px; color: #1e3a8a;">
+                                        As an administrator, you can add new users, edit their roles and permissions, and manage access to the AI Security Shield platform. New users will receive default "Read-Only Viewer" role which can be upgraded as needed.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Initialize the app
+        const app = new AISecurityShield();
+    </script>
+</body>
 </html>
