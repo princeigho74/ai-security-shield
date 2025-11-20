@@ -1040,7 +1040,7 @@ d-4, .grid-3, .grid-2 {
         class AISecurityShield {
             constructor() {
                 this.state = {
-                    currentView: 'login', // login, signup, dashboard
+                    currentView: 'login',
                     currentUser: null,
                     activeTab: 'overview',
                     threats: [],
@@ -1050,26 +1050,8 @@ d-4, .grid-3, .grid-2 {
                     showSettings: false,
                     showUserModal: false,
                     editingUser: null,
-                    users: [
-                        {
-                            id: 1,
-                            email: 'admin@company.com',
-                            phone: '+1234567890',
-                            password: 'admin123',
-                            name: 'Admin User',
-                            role: 'Administrator',
-                            createdAt: '2024-01-15'
-                        },
-                        {
-                            id: 2,
-                            email: 'analyst@company.com',
-                            phone: '+1234567891',
-                            password: 'analyst123',
-                            name: 'Security Analyst',
-                            role: 'Security Analyst',
-                            createdAt: '2024-02-20'
-                        }
-                    ],
+                    mobileMenuOpen: false,
+                    users: this.loadUsers(),
                     alertSettings: {
                         email: 'Smartxpress74@gmail.com',
                         phone: '+2349020779297',
@@ -1082,9 +1064,39 @@ d-4, .grid-3, .grid-2 {
                 this.init();
             }
 
+            loadUsers() {
+                const saved = localStorage.getItem('users');
+                if (saved) {
+                    return JSON.parse(saved);
+                }
+                return [
+                    {
+                        id: 1,
+                        email: 'admin@company.com',
+                        phone: '+1234567890',
+                        password: 'admin123',
+                        name: 'Admin User',
+                        role: 'Administrator',
+                        createdAt: '2024-01-15'
+                    },
+                    {
+                        id: 2,
+                        email: 'analyst@company.com',
+                        phone: '+1234567891',
+                        password: 'analyst123',
+                        name: 'Security Analyst',
+                        role: 'Security Analyst',
+                        createdAt: '2024-02-20'
+                    }
+                ];
+            }
+
+            saveUsers() {
+                localStorage.setItem('users', JSON.stringify(this.state.users));
+            }
+
             init() {
                 this.render();
-                // Check if user is logged in
                 const savedUser = localStorage.getItem('currentUser');
                 if (savedUser) {
                     this.state.currentUser = JSON.parse(savedUser);
@@ -1112,7 +1124,6 @@ d-4, .grid-3, .grid-2 {
             }
 
             signup(email, phone, password, name) {
-                // Check if user already exists
                 const exists = this.state.users.find(u => u.email === email || u.phone === phone);
                 if (exists) {
                     return { success: false, error: 'User with this email or phone already exists' };
@@ -1124,12 +1135,18 @@ d-4, .grid-3, .grid-2 {
                     phone,
                     password,
                     name,
-                    role: 'Read-Only Viewer', // Default role for new signups
+                    role: 'Read-Only Viewer',
                     createdAt: new Date().toISOString().split('T')[0]
                 };
 
                 this.state.users.push(newUser);
+                this.saveUsers();
                 return { success: true };
+            }
+
+            toggleMobileMenu() {
+                this.state.mobileMenuOpen = !this.state.mobileMenuOpen;
+                this.render();
             }
 
             logout() {
@@ -1230,7 +1247,6 @@ d-4, .grid-3, .grid-2 {
                 const role = document.getElementById('user-role').value;
 
                 if (this.state.editingUser) {
-                    // Update existing user
                     const index = this.state.users.findIndex(u => u.id === this.state.editingUser.id);
                     this.state.users[index] = {
                         ...this.state.users[index],
@@ -1240,12 +1256,11 @@ d-4, .grid-3, .grid-2 {
                         role
                     };
                 } else {
-                    // Add new user
                     const newUser = {
                         id: this.state.users.length + 1,
                         email,
                         phone,
-                        password: 'password123', // Default password
+                        password: 'password123',
                         name,
                         role,
                         createdAt: new Date().toISOString().split('T')[0]
@@ -1253,12 +1268,14 @@ d-4, .grid-3, .grid-2 {
                     this.state.users.push(newUser);
                 }
 
+                this.saveUsers();
                 this.closeUserModal();
             }
 
             deleteUser(userId) {
                 if (confirm('Are you sure you want to delete this user?')) {
                     this.state.users = this.state.users.filter(u => u.id !== userId);
+                    this.saveUsers();
                     this.render();
                 }
             }
@@ -1300,9 +1317,7 @@ d-4, .grid-3, .grid-2 {
                         <div class="auth-card">
                             <div class="auth-logo">
                                 <div class="auth-logo-icon">
-                                    <svg width="48" height="48" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
-                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                                    </svg>
+                                    <img src="https://i.imgur.com/Xcq5nha.png" alt="AI Security Shield" style="width: 100px; height: 100px; object-fit: contain;">
                                 </div>
                                 <h1 class="auth-title">AI Security Shield</h1>
                                 <p class="auth-subtitle">Sign in to your account</p>
@@ -1313,12 +1328,12 @@ d-4, .grid-3, .grid-2 {
                             <form onsubmit="return app.handleLogin(event)">
                                 <div class="form-group">
                                     <label class="form-label">Email or Phone Number</label>
-                                    <input type="text" class="form-input" id="login-identifier" placeholder="admin@company.com or +1234567890" required>
+                                    <input type="text" class="form-input" id="login-identifier" placeholder="admin@company.com or +1234567890" required autocomplete="username">
                                 </div>
 
                                 <div class="form-group">
                                     <label class="form-label">Password</label>
-                                    <input type="password" class="form-input" id="login-password" placeholder="Enter your password" required>
+                                    <input type="password" class="form-input" id="login-password" placeholder="Enter your password" required autocomplete="current-password">
                                 </div>
 
                                 <button type="submit" class="btn btn-primary">
@@ -1362,9 +1377,7 @@ d-4, .grid-3, .grid-2 {
                         <div class="auth-card">
                             <div class="auth-logo">
                                 <div class="auth-logo-icon">
-                                    <svg width="48" height="48" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
-                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                                    </svg>
+                                    <img src="https://i.imgur.com/yVLl9S4.png" alt="AI Security Shield" style="width: 80px; height: 80px; object-fit: contain;">
                                 </div>
                                 <h1 class="auth-title">Create Account</h1>
                                 <p class="auth-subtitle">Join AI Security Shield</p>
@@ -1375,27 +1388,27 @@ d-4, .grid-3, .grid-2 {
                             <form onsubmit="return app.handleSignup(event)">
                                 <div class="form-group">
                                     <label class="form-label">Full Name</label>
-                                    <input type="text" class="form-input" id="signup-name" placeholder="John Doe" required>
+                                    <input type="text" class="form-input" id="signup-name" placeholder="John Doe" required autocomplete="name">
                                 </div>
 
                                 <div class="form-group">
                                     <label class="form-label">Email Address</label>
-                                    <input type="email" class="form-input" id="signup-email" placeholder="john@company.com" required>
+                                    <input type="email" class="form-input" id="signup-email" placeholder="john@company.com" required autocomplete="email">
                                 </div>
 
                                 <div class="form-group">
                                     <label class="form-label">Phone Number</label>
-                                    <input type="tel" class="form-input" id="signup-phone" placeholder="+1234567890" required>
+                                    <input type="tel" class="form-input" id="signup-phone" placeholder="+1234567890" required autocomplete="tel">
                                 </div>
 
                                 <div class="form-group">
                                     <label class="form-label">Password</label>
-                                    <input type="password" class="form-input" id="signup-password" placeholder="Create a strong password" required minlength="6">
+                                    <input type="password" class="form-input" id="signup-password" placeholder="Create a strong password" required minlength="6" autocomplete="new-password">
                                 </div>
 
                                 <div class="form-group">
                                     <label class="form-label">Confirm Password</label>
-                                    <input type="password" class="form-input" id="signup-confirm" placeholder="Confirm your password" required minlength="6">
+                                    <input type="password" class="form-input" id="signup-confirm" placeholder="Confirm your password" required minlength="6" autocomplete="new-password">
                                 </div>
 
                                 <button type="submit" class="btn btn-primary">
